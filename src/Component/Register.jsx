@@ -7,7 +7,8 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import StudentNav from "./StudentNav";
 export default function Register() {
-
+  const emialregex = /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/;
+  const passregex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const student = useSelector((state) => state.student.student);
@@ -17,6 +18,7 @@ export default function Register() {
     email: "",
     password: "",
   });
+
   useEffect(() => {
     dispatch(login());
   }, []);
@@ -28,8 +30,14 @@ export default function Register() {
 
     if (datas.name === "" || datas.email === "" || datas.password === "") {
       toast.warn("Please Enter All The Required Fields");
+    } else if (!emialregex.test(datas.email)) {
+      toast.warn("Invalid Email");
     } else if (present) {
       toast.warn("User Already Exist");
+    } else if (!passregex.test(datas.password)) {
+      toast.warn(
+        "Password must contain Minimum eight characters, at least one letter, one number and one special character:"
+      );
     } else {
       dispatch(
         register({

@@ -7,6 +7,7 @@ import Cookies from "js-cookie";
 import { login, studentscore } from "../Action";
 import { useSelector, useDispatch } from "react-redux";
 import StudentNav from "./StudentNav";
+import { toast } from "react-toastify";
 export default function Quizz() {
   const navigate = useNavigate();
   const cookie = Cookies.get("student");
@@ -14,6 +15,7 @@ export default function Quizz() {
   const student = useSelector((state) => state.student.student);
   useEffect(() => {
     if (!cookie) {
+      toast.error("Please Login First");
       navigate("/studentlogin", { replace: true });
     } else {
       dispatch(login());
