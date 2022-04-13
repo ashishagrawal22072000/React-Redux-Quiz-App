@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import StudentNav from "./StudentNav";
 export default function Register() {
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const student = useSelector((state) => state.student.student);
@@ -15,7 +16,6 @@ export default function Register() {
     name: "",
     email: "",
     password: "",
-    score: 0,
   });
   useEffect(() => {
     dispatch(login());

@@ -5,6 +5,7 @@ import {
   SCORE_STUDENT,
   ADMIN_DATA,
 } from "./actionType";
+
 export const register = (student) => {
   return (dispatch) => {
     axios({

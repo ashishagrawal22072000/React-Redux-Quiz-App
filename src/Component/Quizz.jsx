@@ -23,12 +23,14 @@ export default function Quizz() {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [showScore, setShowScore] = useState(false);
   const [score, setScore] = useState(0);
+  const [saveans, setsaveans] = useState([]);
 
-  const handleAnswerOptionClick = (isCorrect) => {
+  const handleAnswerOptionClick = (isCorrect, text) => {
+    setsaveans([...saveans, text]);
     if (isCorrect) {
       setScore(score + 1);
     }
-
+    console.log(saveans);
     const nextQuestion = currentQuestion + 1;
     if (nextQuestion < Questions.length) {
       setCurrentQuestion(nextQuestion);
@@ -47,6 +49,8 @@ export default function Quizz() {
         studentscore(cookie, {
           ...activeuser[0],
           score: score,
+          status: "completed",
+          answers: saveans,
         })
       );
     }
@@ -96,17 +100,24 @@ export default function Quizz() {
                 </h2>
               </div>
               <div className="container d-flex flex-column justify-content-center align-items-start">
-                {Questions[currentQuestion].options.map((answerOption) => (
-                  <button
-                    className="btn btn-dark mt-5 fw-bold "
-                    style={{ width: "200px", height: "50px" }}
-                    onClick={() =>
-                      handleAnswerOptionClick(answerOption.isCorrect)
-                    }
-                  >
-                    {answerOption.answerText}
-                  </button>
-                ))}
+                {Questions[currentQuestion].options.map((answerOption) => {
+                  return (
+                    <>
+                      <button
+                        className="btn btn-dark mt-5 fw-bold "
+                        style={{ width: "200px", height: "50px" }}
+                        onClick={() =>
+                          handleAnswerOptionClick(
+                            answerOption.isCorrect,
+                            answerOption.answerText
+                          )
+                        }
+                      >
+                        {answerOption.answerText}
+                      </button>
+                    </>
+                  );
+                })}
               </div>
             </div>
           </>
