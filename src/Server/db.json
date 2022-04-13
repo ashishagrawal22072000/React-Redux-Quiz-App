@@ -1,0 +1,18 @@
+{
+  "students": [
+    {
+      "id": 1649822510726,
+      "name": "manish",
+      "email": "manish@gmail.com",
+      "password": "1234",
+      "score": 10
+    },
+    {
+      "id": 1649833594796,
+      "name": "ashish",
+      "email": "ashish@gmail.com",
+      "password": "1234",
+      "score": 5
+    }
+  ]
+}
