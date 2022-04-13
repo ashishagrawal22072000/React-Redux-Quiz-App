@@ -50,7 +50,6 @@ export default function Register() {
         name: "",
         email: "",
         password: "",
-        score: 0,
       });
 
       navigate("/studentlogin", { replace: true });
@@ -118,3 +117,4 @@ export default function Register() {
     </>
   );
 }
+
