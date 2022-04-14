@@ -31,7 +31,7 @@ export default function Login() {
       return ele.email === data.email && ele.password === data.password;
     });
 
-    if (valid_student.length != 0) {
+    if (valid_student.length !== 0) {
       Cookies.set("student", valid_student[0].id);
       navigate("/quizz", { replace: true });
 
@@ -60,6 +60,7 @@ export default function Login() {
               className="form-control"
               id="exampleInputEmail1"
               aria-describedby="emailHelp"
+              autocomplete="off"
               value={data.email}
               onChange={(e) => setdata({ ...data, email: e.target.value })}
             />

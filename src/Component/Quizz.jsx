@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Questions from "../Questions";
 import "bootstrap/dist/css/bootstrap.css";
 import { useNavigate } from "react-router-dom";
@@ -32,7 +32,7 @@ export default function Quizz() {
     if (isCorrect) {
       setScore(score + 1);
     }
-    console.log(saveans);
+
     const nextQuestion = currentQuestion + 1;
     if (nextQuestion < Questions.length) {
       setCurrentQuestion(nextQuestion);
@@ -55,6 +55,7 @@ export default function Quizz() {
           answers: saveans,
         })
       );
+      toast.success("Scores Saved Successfully");
     }
   };
   const playAgain = () => {

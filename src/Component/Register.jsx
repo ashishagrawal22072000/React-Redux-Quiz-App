@@ -8,7 +8,7 @@ import "react-toastify/dist/ReactToastify.css";
 import StudentNav from "./StudentNav";
 export default function Register() {
   const emialregex = /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/;
-  const passregex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+  const passregex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/;
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const student = useSelector((state) => state.student.student);
@@ -71,6 +71,7 @@ export default function Register() {
               className="form-control"
               id="exampleInputEmail1"
               aria-describedby="emailHelp"
+              autocomplete="off"
               value={datas.name}
               onChange={(e) => setdatas({ ...datas, name: e.target.value })}
             />
@@ -84,6 +85,7 @@ export default function Register() {
               className="form-control"
               id="email"
               aria-describedby="emailHelp"
+              autocomplete="off"
               value={datas.email}
               onChange={(e) => setdatas({ ...datas, email: e.target.value })}
             />
@@ -117,4 +119,3 @@ export default function Register() {
     </>
   );
 }
-

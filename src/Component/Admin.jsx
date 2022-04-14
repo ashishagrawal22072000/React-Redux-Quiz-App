@@ -28,7 +28,7 @@ export default function Admin() {
   });
   return (
     <>
-    <AdminNav />
+      <AdminNav />
       <div className="container p-5 mt-5 bg-warning">
         <form>
           <h1 className="text-center">Login Admin</h1>
@@ -43,6 +43,7 @@ export default function Admin() {
               className="form-control"
               id="exampleInputEmail1"
               aria-describedby="emailHelp"
+              autocomplete="off"
               value={data.email}
               onChange={(e) => setdata({ ...data, email: e.target.value })}
             />
