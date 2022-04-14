@@ -1,99 +1,81 @@
 import React, { useEffect, useState } from "react";
-import Cookies from "js-cookie";
-import { useNavigate } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.css";
 import { admindata } from "../Action/index";
 import { useDispatch, useSelector } from "react-redux";
-import "bootstrap/dist/css/bootstrap.css";
-import AdminNav from "./AdminNav";
-import Chart from "./Chart";
-import ReactLoading from "react-loading";
+import Questions from "../Questions";
 export default function Data() {
-  const cookie = Cookies.get("admin");
-  const navigate = useNavigate();
   const dispatch = useDispatch();
-  const students = useSelector((state) => state.student.student);
-  const [loading, setloading] = useState(true);
+  const admin = useSelector((state) => state.student.student);
+  console.log(admin);
   useEffect(() => {
-    if (!cookie) {
-      navigate("/adminlogin", { replace: true });
-    } else {
-      setTimeout(() => {
-        dispatch(admindata());
-        setloading(false);
-      }, 2000);
-    }
+    dispatch(admindata());
   }, []);
 
-  const chartdata = students.map((ele) => {
-    return ele.score;
+  const complete_quiz = admin.filter((ele) => {
+    return ele.status === "completed";
   });
-  const chartlabel = students.map((ele) => {
-    return ele.name;
+  const pass_quiz = admin.filter((ele) => {
+    return ele.status === "completed" && ele.score >= Questions.length / 2;
   });
-
+  console.log(Questions.length);
   return (
     <>
-      {loading ? (
-        <div className="container p-5 mt-5 d-flex justify-content-center align-items-center">
-          <div className="container p-5 mt-5 d-flex justify-content-center align-items-center">
-            <ReactLoading type="bars" color="purple" height={200} width={200} />
+      <div className="container-fluid d-flex justify-content-center">
+        <div className="container bg-info mx-3 p-5">
+          <h1>{admin.length}</h1>
+          <h3>Total Students</h3>
+        </div>
+        <div className="container bg-warning mx-3 p-5">
+          <h1>{complete_quiz.length}</h1>
+          <h3>Complete Quiz</h3>
+        </div>
+        <div className="container bg-success mx-3 p-5">
+          <h1>{pass_quiz.length}</h1>
+          <h3>Pass Students</h3>
+        </div>
+        <div className="container bg-danger mx-3 p-5">
+          <h1>{complete_quiz.length - pass_quiz.length}</h1>
+          <h3>Fail Students</h3>
+        </div>
+      </div>
+
+      <div id="accordion">
+        <div class="card">
+          <div class="card-header" id="headingOne">
+            <h5 class="mb-0">
+              <button
+                class="btn btn-link"
+                data-toggle="collapse"
+                data-target="#collapseOne"
+                aria-expanded="true"
+                aria-controls="collapseOne"
+              >
+                Collapsible Group Item #1
+              </button>
+            </h5>
+          </div>
+
+          <div
+            id="collapseOne"
+            class="collapse show"
+            aria-labelledby="headingOne"
+            data-parent="#accordion"
+          >
+            <div class="card-body">
+              Anim pariatur cliche reprehenderit, enim eiusmod high life
+              accusamus terry richardson ad squid. 3 wolf moon officia aute, non
+              cupidatat skateboard dolor brunch. Food truck quinoa nesciunt
+              laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird
+              on it squid single-origin coffee nulla assumenda shoreditch et.
+              Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred
+              nesciunt sapiente ea proident. Ad vegan excepteur butcher vice
+              lomo. Leggings occaecat craft beer farm-to-table, raw denim
+              aesthetic synth nesciunt you probably haven't heard of them
+              accusamus labore sustainable VHS.
+            </div>
           </div>
         </div>
-      ) : (
-        <>
-          <AdminNav />
-
-          {students.length === 0 ? (
-            <>
-              <h1 className="text-center">No Data Found</h1>
-            </>
-          ) : (
-            <>
-              <div className="container-fluid p-5 mt-5">
-                <h1 className="text-center mb-3">All Users</h1>
-                <hr />
-                <table className="table table-dark table-hover border border-dark">
-                  <thead>
-                    <tr>
-                      <th scope="col">S.No.</th>
-                      <th scope="col">id</th>
-                      <th scope="col">Name</th>
-                      <th scope="col">Email</th>
-                      <th scope="col">Password</th>
-                      <th scope="col">Score</th>
-                      <th scope="col">Status</th>
-                      <th scope="col">Answers</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {students.map((ele, i) => {
-                      return (
-                        <>
-                          <tr key={i + 1}>
-                            <th>{i + 1}</th>
-                            <th>{ele.id}</th>
-                            <td>{ele.name}</td>
-                            <td>{ele.email}</td>
-                            <td>{ele.password}</td>
-                            <td>{ele.score}</td>
-                            <td>{ele.status}</td>
-                            <td>{ele.answers}</td>
-                          </tr>
-                        </>
-                      );
-                    })}
-                  </tbody>
-                </table>
-              </div>
-              <div className="container-fluid p-5 mt-5">
-                <h1 className="text-center">Students Report</h1>
-                <hr />
-                <Chart data={chartdata} label={chartlabel} />
-              </div>
-            </>
-          )}
-        </>
-      )}
+      </div>
     </>
   );
 }

@@ -4,7 +4,7 @@ import Home from "../Component/Home";
 import Register from "../Component/Register";
 import Login from "../Component/Login";
 import Admin from "../Component/Admin";
-import Data from "../Component/Data";
+import Dashboard from "../Component/Dashboard";
 import Quizz from "../Component/Quizz";
 import Error from "../Component/Error";
 export default function Router() {
@@ -16,7 +16,7 @@ export default function Router() {
           <Route path="/studentlogin" element={<Login />} />
           <Route path="/studentregister" element={<Register />} />
           <Route path="/adminlogin" element={<Admin />} />
-          <Route path="/data" element={<Data />} />
+          <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/quizz" element={<Quizz />} />
           <Route path="*" element={<Error />} />
         </Routes>

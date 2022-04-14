@@ -139,6 +139,26 @@
         "Authentication",
         "Burning"
       ]
+    },
+    {
+      "id": 1649932311067,
+      "name": "anupam",
+      "email": "anupam@gmail.com",
+      "password": "ANU@pam123",
+      "score": 9,
+      "status": "completed",
+      "answers": [
+        "Paris",
+        "Elon Musk",
+        "Apple",
+        "7",
+        "Arctic",
+        "England",
+        "Rajendra Prasad",
+        "ROM",
+        "Authentication",
+        "Burning"
+      ]
     }
   ]
 }

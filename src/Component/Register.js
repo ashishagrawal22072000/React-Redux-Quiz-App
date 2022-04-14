@@ -6,6 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import StudentNav from "./StudentNav";
+import RegisterImage from "../Images/register.jpg";
 export default function Register() {
   const emialregex = /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/;
   const passregex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/;
@@ -58,63 +59,73 @@ export default function Register() {
   return (
     <>
       <StudentNav />
-      <div className="container p-5 mt-5 bg-warning">
-        <form>
-          <h1 className="text-center">Register Yourself</h1>
-          <hr />
-          <div className="mb-5">
-            <label htmlFor="name" className="form-label fw-bold">
-              User Name
-            </label>
-            <input
-              type="text"
-              className="form-control"
-              id="exampleInputEmail1"
-              aria-describedby="emailHelp"
-              autocomplete="off"
-              value={datas.name}
-              onChange={(e) => setdatas({ ...datas, name: e.target.value })}
-            />
-          </div>
-          <div className="mb-5">
-            <label htmlFor="email" className="form-label fw-bold">
-              Email address
-            </label>
-            <input
-              type="email"
-              className="form-control"
-              id="email"
-              aria-describedby="emailHelp"
-              autocomplete="off"
-              value={datas.email}
-              onChange={(e) => setdatas({ ...datas, email: e.target.value })}
-            />
-          </div>
-          <div className="mb-5">
-            <label htmlFor="password" className="form-label fw-bold">
-              Password
-            </label>
-            <input
-              type="password"
-              className="form-control"
-              id="password"
-              value={datas.password}
-              onChange={(e) => setdatas({ ...datas, password: e.target.value })}
-            />
-          </div>
-          <div className="d-flex justify-content-center">
-            <button
-              type="submit"
-              className="btn btn-dark fw-bold"
-              onClick={registerStudent}
-            >
-              Register
-            </button>
-          </div>
-          <p className="text-center mt-3">
-            Already Have An Account ? <Link to="/studentlogin">Login</Link>
-          </p>
-        </form>
+      <div className="container mt-5 d-flex justify-content-center ">
+        <div className="container bg-success p-5">
+          <form>
+            <h1 className="text-center">Register Yourself</h1>
+            <hr />
+            <div className="mb-5">
+              <label htmlFor="name" className="form-label fw-bold">
+                User Name
+              </label>
+              <input
+                type="text"
+                className="form-control"
+                id="exampleInputEmail1"
+                aria-describedby="emailHelp"
+                autocomplete="off"
+                value={datas.name}
+                onChange={(e) => setdatas({ ...datas, name: e.target.value })}
+              />
+            </div>
+            <div className="mb-5">
+              <label htmlFor="email" className="form-label fw-bold">
+                Email address
+              </label>
+              <input
+                type="email"
+                className="form-control"
+                id="email"
+                aria-describedby="emailHelp"
+                autocomplete="off"
+                value={datas.email}
+                onChange={(e) => setdatas({ ...datas, email: e.target.value })}
+              />
+            </div>
+            <div className="mb-5">
+              <label htmlFor="password" className="form-label fw-bold">
+                Password
+              </label>
+              <input
+                type="password"
+                className="form-control"
+                id="password"
+                value={datas.password}
+                onChange={(e) =>
+                  setdatas({ ...datas, password: e.target.value })
+                }
+              />
+            </div>
+            <div className="d-flex justify-content-center">
+              <button
+                type="submit"
+                className="btn btn-dark fw-bold"
+                onClick={registerStudent}
+              >
+                Register
+              </button>
+            </div>
+            <p className="text-center mt-3">
+              Already Have An Account ?{" "}
+              <Link to="/studentlogin" className="fw-bold text-dark">
+                Login
+              </Link>
+            </p>
+          </form>
+        </div>
+        <div className="container border">
+          <img src={RegisterImage} height="100%" width="100%" />
+        </div>
       </div>
     </>
   );
