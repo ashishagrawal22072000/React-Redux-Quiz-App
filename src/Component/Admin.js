@@ -6,6 +6,9 @@ import "react-toastify/dist/ReactToastify.css";
 import Cookies from "js-cookie";
 import AdminNav from "./AdminNav";
 export default function Admin() {
+  const emial = process.env.REACT_APP_ADMIN_EMIAL;
+  const password = process.env.REACT_APP_ADMIN_PASSWORD;
+
   const [data, setdata] = useState({
     email: "",
     password: "",
@@ -13,7 +16,7 @@ export default function Admin() {
   const navigate = useNavigate();
   const admin = (e) => {
     e.preventDefault();
-    if (data.email === "ashish@gmail.com" && data.password === "ash123") {
+    if (data.email === emial && data.password === password) {
       navigate("/data", { replace: true });
       Cookies.set("admin", "adminlogin");
     } else {

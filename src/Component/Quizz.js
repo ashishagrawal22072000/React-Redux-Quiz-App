@@ -4,21 +4,35 @@ import "bootstrap/dist/css/bootstrap.css";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 
-import { login, studentscore } from "../Action";
+import { login, studentscore, admindata } from "../Action/index";
 import { useSelector, useDispatch } from "react-redux";
 import StudentNav from "./StudentNav";
 import { toast } from "react-toastify";
 export default function Quizz() {
   const navigate = useNavigate();
   const cookie = Cookies.get("student");
+
+  const [complete, setcomplete] = useState(false);
   const dispatch = useDispatch();
   const student = useSelector((state) => state.student.student);
+  const admin = useSelector((state) => state.student.student);
   useEffect(() => {
     if (!cookie) {
       toast.error("Please Login First");
       navigate("/studentlogin", { replace: true });
     } else {
       dispatch(login());
+      dispatch(admindata());
+    }
+  }, []);
+  useEffect(() => {
+    const stu_cmp = admin.filter((ele) => {
+      return ele.id == cookie && ele.status === "completed";
+    });
+    
+    if (stu_cmp.length > 0) {
+      setcomplete(true);
+      Cookies.remove("student");
     }
   }, []);
 
@@ -89,40 +103,50 @@ export default function Quizz() {
           </div>
         ) : (
           <>
-            <div className="container p-5 mt-5 bg-warning ">
-              <h1 className="text-center">Quizz App</h1>
-              <hr />
-              <div className="question-count mt-5">
-                <span className="fw-bold text-muted">
-                  Question {currentQuestion + 1} of {Questions.length}
-                </span>
+            {complete ? (
+              <div className="container p-5 mt-5 d-flex justify-content-center align-items-center">
+                <div className="container p-5 mt-5 d-flex justify-content-center align-items-center">
+                  <h1 className="text-center">
+                    You Already Complete Your Quiz
+                  </h1>
+                </div>
               </div>
-              <div className="question-text mt-3">
-                <h2 className="fw-bold">
-                  {Questions[currentQuestion].question}
-                </h2>
+            ) : (
+              <div className="container p-5 mt-5 bg-warning ">
+                <h1 className="text-center">Quizz App</h1>
+                <hr />
+                <div className="question-count mt-5">
+                  <span className="fw-bold text-muted">
+                    Question {currentQuestion + 1} of {Questions.length}
+                  </span>
+                </div>
+                <div className="question-text mt-3">
+                  <h2 className="fw-bold">
+                    {Questions[currentQuestion].question}
+                  </h2>
+                </div>
+                <div className="container d-flex flex-column justify-content-center align-items-start">
+                  {Questions[currentQuestion].options.map((answerOption) => {
+                    return (
+                      <>
+                        <button
+                          className="btn btn-dark mt-5 fw-bold "
+                          style={{ width: "200px", height: "50px" }}
+                          onClick={() =>
+                            handleAnswerOptionClick(
+                              answerOption.isCorrect,
+                              answerOption.answerText
+                            )
+                          }
+                        >
+                          {answerOption.answerText}
+                        </button>
+                      </>
+                    );
+                  })}
+                </div>
               </div>
-              <div className="container d-flex flex-column justify-content-center align-items-start">
-                {Questions[currentQuestion].options.map((answerOption) => {
-                  return (
-                    <>
-                      <button
-                        className="btn btn-dark mt-5 fw-bold "
-                        style={{ width: "200px", height: "50px" }}
-                        onClick={() =>
-                          handleAnswerOptionClick(
-                            answerOption.isCorrect,
-                            answerOption.answerText
-                          )
-                        }
-                      >
-                        {answerOption.answerText}
-                      </button>
-                    </>
-                  );
-                })}
-              </div>
-            </div>
+            )}
           </>
         )}
       </div>

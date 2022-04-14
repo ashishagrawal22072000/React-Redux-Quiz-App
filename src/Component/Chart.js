@@ -15,7 +15,7 @@ export default function Chart({ data, label }) {
               label: "Score",
               data: data,
 
-              backgroundColor: ["rgb(120, 120, 120)"],
+              backgroundColor: ["#581b98"],
             },
           ],
         }}

@@ -10,7 +10,7 @@ export const register = (student) => {
   return (dispatch) => {
     axios({
       method: "POST",
-      url: "http://localhost:3000/students",
+      url: `http://localhost:${process.env.REACT_APP_PORT}/students`,
       data: student,
     })
       .then((res) => {
@@ -29,7 +29,7 @@ export const login = () => {
   return (dispatch) => {
     axios({
       method: "GET",
-      url: "http://localhost:3000/students",
+      url: `http://localhost:${process.env.REACT_APP_PORT}/students`,
     })
       .then((res) => {
         dispatch({
@@ -47,7 +47,7 @@ export const studentscore = (id, data) => {
   return (dispatch) => {
     axios({
       method: "PUT",
-      url: `http://localhost:3000/students/${id}`,
+      url: `http://localhost:${process.env.REACT_APP_PORT}/students/${id}`,
       data: data,
     })
       .then((res) => {
@@ -66,7 +66,7 @@ export const admindata = () => {
   return (dispatch) => {
     axios({
       method: "GET",
-      url: "http://localhost:3000/students",
+      url: `http://localhost:${process.env.REACT_APP_PORT}/students`,
     })
       .then((res) => {
         dispatch({
