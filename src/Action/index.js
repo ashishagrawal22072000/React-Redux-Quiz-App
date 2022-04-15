@@ -4,6 +4,7 @@ import {
   REGISTER_STUDENT,
   SCORE_STUDENT,
   ADMIN_DATA,
+  STUDENT_REPORT
 } from "./actionType";
 
 export const register = (student) => {
@@ -79,3 +80,21 @@ export const admindata = () => {
       });
   };
 };
+
+export const studentreport = (id) =>{
+  return (dispatch) => {
+    axios({
+      method: "GET",
+      url: `http://localhost:${process.env.REACT_APP_PORT}/students/${id}`,
+    })
+      .then((res) => {
+        dispatch({
+          type: STUDENT_REPORT,
+          payload: res.data,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+}

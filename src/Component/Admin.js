@@ -18,7 +18,7 @@ export default function Admin() {
   const admin = (e) => {
     e.preventDefault();
     if (data.email === emial && data.password === password) {
-      navigate("/data", { replace: true });
+      navigate("/dashboard", { replace: true });
       Cookies.set("admin", "adminlogin");
     } else {
       toast.error("Invalid Logins");

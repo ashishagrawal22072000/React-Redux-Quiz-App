@@ -7,6 +7,7 @@ ChartJS.register(...registerables);
 export default function Chart({ data, label }) {
   return (
     <div>
+      
       <Bar
         data={{
           labels: label,
@@ -15,7 +16,9 @@ export default function Chart({ data, label }) {
               label: "Score",
               data: data,
 
-              backgroundColor: ["#581b98"],
+              backgroundColor: ["#fffff"],
+              fontColor: ["#fffff"],
+              fontWeight: "bold",
             },
           ],
         }}

@@ -3,9 +3,12 @@ import "bootstrap/dist/css/bootstrap.css";
 import { admindata } from "../Action/index";
 import { useDispatch, useSelector } from "react-redux";
 import Questions from "../Questions";
+import { BsInfoCircleFill } from "react-icons/bs";
+import { Accordion } from "react-bootstrap";
 export default function Data() {
   const dispatch = useDispatch();
   const admin = useSelector((state) => state.student.student);
+  const [show, setshow] = useState(false);
   console.log(admin);
   useEffect(() => {
     dispatch(admindata());
@@ -18,64 +21,88 @@ export default function Data() {
     return ele.status === "completed" && ele.score >= Questions.length / 2;
   });
   console.log(Questions.length);
+
+  const moreInfo = () => {
+    if (show) {
+      setshow(false);
+    } else {
+      setshow(true);
+    }
+  };
+
+  console.log(show);
+
   return (
     <>
-      <div className="container-fluid d-flex justify-content-center">
-        <div className="container bg-info mx-3 p-5">
-          <h1>{admin.length}</h1>
-          <h3>Total Students</h3>
+      <div className="container-fluid d-flex mt-5 justify-content-center">
+        <div className="container bg-dark mx-3 p-5 shadow-lg rounded">
+          <h1 className="text-light">{admin.length}</h1>
+          <h3 className="text-secondary">Total Students</h3>
         </div>
-        <div className="container bg-warning mx-3 p-5">
-          <h1>{complete_quiz.length}</h1>
-          <h3>Complete Quiz</h3>
+        <div className="container bg-dark mx-3 p-5 shadow-lg rounded">
+          <h1 className="text-light">{complete_quiz.length}</h1>
+          <h3 className="text-secondary">Complete Quiz</h3>
         </div>
-        <div className="container bg-success mx-3 p-5">
-          <h1>{pass_quiz.length}</h1>
-          <h3>Pass Students</h3>
+        <div className="container bg-dark mx-3 p-5 shadow-lg rounded">
+          <h1 className="text-light">{pass_quiz.length}</h1>
+          <h3 className="text-secondary">Pass Students</h3>
         </div>
-        <div className="container bg-danger mx-3 p-5">
-          <h1>{complete_quiz.length - pass_quiz.length}</h1>
-          <h3>Fail Students</h3>
+        <div className="container bg-dark mx-3 p-5 shadow-lg rounded">
+          <h1 className="text-light">
+            {complete_quiz.length - pass_quiz.length}
+          </h1>
+          <h3 className="text-secondary">Fail Students</h3>
         </div>
       </div>
 
-      <div id="accordion">
-        <div class="card">
-          <div class="card-header" id="headingOne">
-            <h5 class="mb-0">
-              <button
-                class="btn btn-link"
-                data-toggle="collapse"
-                data-target="#collapseOne"
-                aria-expanded="true"
-                aria-controls="collapseOne"
-              >
-                Collapsible Group Item #1
-              </button>
-            </h5>
-          </div>
-
-          <div
-            id="collapseOne"
-            class="collapse show"
-            aria-labelledby="headingOne"
-            data-parent="#accordion"
-          >
-            <div class="card-body">
-              Anim pariatur cliche reprehenderit, enim eiusmod high life
-              accusamus terry richardson ad squid. 3 wolf moon officia aute, non
-              cupidatat skateboard dolor brunch. Food truck quinoa nesciunt
-              laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird
-              on it squid single-origin coffee nulla assumenda shoreditch et.
-              Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred
-              nesciunt sapiente ea proident. Ad vegan excepteur butcher vice
-              lomo. Leggings occaecat craft beer farm-to-table, raw denim
-              aesthetic synth nesciunt you probably haven't heard of them
-              accusamus labore sustainable VHS.
+      <Accordion
+        defaultActiveKey="0"
+        className="d-flex justify-content-center mt-3 mb-3 align-items-center outline-none"
+      >
+        <Accordion.Item eventKey="0">
+          <Accordion.Header className="text-center">
+            More Info <BsInfoCircleFill />
+          </Accordion.Header>
+          <Accordion.Body>
+            <div className="container-fluid p-5 mt-5">
+              <h1 className="text-center mb-3">All Students Detail</h1>
+              <hr />
+              <table className="table table-dark table-hover border border-dark">
+                <thead>
+                  <tr>
+                    <th scope="col">S.No.</th>
+                    <th scope="col">id</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Password</th>
+                    <th scope="col">Score</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Answers</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {admin.map((ele, i) => {
+                    return (
+                      <>
+                        <tr key={i + 1}>
+                          <th>{i + 1}</th>
+                          <th>{ele.id}</th>
+                          <td>{ele.name}</td>
+                          <td>{ele.email}</td>
+                          <td>{ele.password}</td>
+                          <td>{ele.score}</td>
+                          <td>{ele.status}</td>
+                          <td>{ele.answers}</td>
+                        </tr>
+                      </>
+                    );
+                  })}
+                </tbody>
+              </table>
             </div>
-          </div>
-        </div>
-      </div>
+          </Accordion.Body>
+        </Accordion.Item>
+      </Accordion>
     </>
   );
 }

@@ -6,6 +6,7 @@ import Login from "../Component/Login";
 import Admin from "../Component/Admin";
 import Dashboard from "../Component/Dashboard";
 import Quizz from "../Component/Quizz";
+
 import Error from "../Component/Error";
 export default function Router() {
   return (
@@ -18,6 +19,7 @@ export default function Router() {
           <Route path="/adminlogin" element={<Admin />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/quizz" element={<Quizz />} />
+
           <Route path="*" element={<Error />} />
         </Routes>
       </BrowserRouter>

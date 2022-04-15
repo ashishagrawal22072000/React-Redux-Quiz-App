@@ -29,12 +29,20 @@ export default function Quizz() {
     const stu_cmp = admin.filter((ele) => {
       return ele.id == cookie && ele.status === "completed";
     });
-    
+
     if (stu_cmp.length > 0) {
       setcomplete(true);
       Cookies.remove("student");
     }
   }, []);
+
+  const [counter, setcounter] = useState(59);
+
+  useEffect(() => {
+    const timer =
+      counter > 0 && setInterval(() => setcounter(counter - 1), 500);
+    return () => clearInterval(timer);
+  }, [counter]);
 
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [showScore, setShowScore] = useState(false);
@@ -56,7 +64,7 @@ export default function Quizz() {
   };
 
   const save = () => {
-    const confirm = window.confirm("Are You Sure To Want To Save  ");
+    const confirm = window.confirm("Are You Sure To Want To Exit");
     const activeuser = student.filter((ele) => {
       return ele.id == cookie;
     });
@@ -70,35 +78,42 @@ export default function Quizz() {
         })
       );
       toast.success("Scores Saved Successfully");
+      Cookies.remove("student");
+      navigate("/studentlogin", { replace: true });
     }
   };
-  const playAgain = () => {
-    window.location.reload();
-  };
+
+  useEffect(() => {
+    if (counter === 0) {
+      toast.error("Sorry ! Your Time Is Up");
+      setShowScore(true);
+    }
+  }, [counter]);
   return (
     <>
       <StudentNav />
       <div className="container">
         {showScore ? (
-          <div className="score-section container p-5 mt-5 bg-warning">
-            <h1 className="text-center">
-              You scored{" "}
-              <span
-                className={`${
-                  score >= Questions.length / 2 ? "text-success" : "text-danger"
-                }`}
-              >
-                {score}
-              </span>{" "}
-              out of {Questions.length}
-            </h1>
-            <div className="container d-flex mt-5 justify-content-center align-items-center">
-              <button className="btn btn-dark fw-bold mx-5" onClick={playAgain}>
-                Play Again
-              </button>
-              <button className="btn btn-dark fw-bold" onClick={save}>
-                Save
-              </button>
+          <div className="score-section container p-5 mt-5 bg-dark">
+            <div className="container p-5 mt-5">
+              <h1 className="text-center text-light">
+                You scored{" "}
+                <span
+                  className={`${
+                    score >= Questions.length / 2
+                      ? "text-success"
+                      : "text-danger"
+                  }`}
+                >
+                  {score}
+                </span>{" "}
+                out of {Questions.length}
+              </h1>
+              <div className="container d-flex mt-5 justify-content-center align-items-center">
+                <button className="btn btn-light fw-bold" onClick={save}>
+                  Exit
+                </button>
+              </div>
             </div>
           </div>
         ) : (
@@ -112,16 +127,27 @@ export default function Quizz() {
                 </div>
               </div>
             ) : (
-              <div className="container p-5 mt-5 bg-warning ">
-                <h1 className="text-center">Quizz App</h1>
+              <div className="container p-5 mt-5 bg-dark ">
+                <h1 className="text-center text-light">Quizz App</h1>
                 <hr />
-                <div className="question-count mt-5">
-                  <span className="fw-bold text-muted">
+                <div className="question-count mt-5 d-flex justify-content-between">
+                  <h4 className="fw-bold text-light">
                     Question {currentQuestion + 1} of {Questions.length}
-                  </span>
+                  </h4>
+                  <h4
+                    className={`${
+                      counter <= 10 ? "text-danger" : "text-light"
+                    } text-center`}
+                  >
+                    00:
+                    <span className={`${counter < 10 ? "d-inline" : "d-none"}`}>
+                      0
+                    </span>
+                    {counter}
+                  </h4>
                 </div>
                 <div className="question-text mt-3">
-                  <h2 className="fw-bold">
+                  <h2 className="fw-bold text-light">
                     {Questions[currentQuestion].question}
                   </h2>
                 </div>
@@ -130,7 +156,7 @@ export default function Quizz() {
                     return (
                       <>
                         <button
-                          className="btn btn-dark mt-5 fw-bold "
+                          className="btn btn-light mt-5 fw-bold "
                           style={{ width: "200px", height: "50px" }}
                           onClick={() =>
                             handleAnswerOptionClick(

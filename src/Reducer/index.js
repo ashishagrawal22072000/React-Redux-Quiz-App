@@ -15,7 +15,12 @@ const studentReducer = (state = { student: [] }, action) => {
         ...state,
         student: action.payload,
       };
-      case "ADMIN_DATA":
+    case "ADMIN_DATA":
+      return {
+        ...state,
+        student: action.payload,
+      };
+    case "STUDENT_REPORT":
       return {
         ...state,
         student: action.payload,
