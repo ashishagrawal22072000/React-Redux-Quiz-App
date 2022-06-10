@@ -7,7 +7,6 @@ ChartJS.register(...registerables);
 export default function Chart({ data, label }) {
   return (
     <div>
-      
       <Bar
         data={{
           labels: label,

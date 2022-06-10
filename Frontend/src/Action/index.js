@@ -4,8 +4,10 @@ import {
   REGISTER_STUDENT,
   SCORE_STUDENT,
   ADMIN_DATA,
-  STUDENT_REPORT
+  STUDENT_REPORT,
 } from "./actionType";
+
+const PORT = process.env.REACT_APP_PORT || 3000;
 
 export const register = (student) => {
   return (dispatch) => {
@@ -81,7 +83,7 @@ export const admindata = () => {
   };
 };
 
-export const studentreport = (id) =>{
+export const studentreport = (id) => {
   return (dispatch) => {
     axios({
       method: "GET",
@@ -97,4 +99,4 @@ export const studentreport = (id) =>{
         console.log(err);
       });
   };
-}
+};

@@ -31,7 +31,7 @@ export default function Login() {
     const valid_student = student.filter((ele) => {
       return ele.email === data.email && ele.password === data.password;
     });
-
+    console.log(valid_student);
     if (valid_student.length !== 0) {
       Cookies.set("student", valid_student[0].id);
       navigate("/quizz", { replace: true });
@@ -68,7 +68,7 @@ export default function Login() {
                 className="form-control"
                 id="exampleInputEmail1"
                 aria-describedby="emailHelp"
-                autocomplete="off"
+                autoComplete="off"
                 value={data.email}
                 onChange={(e) => setdata({ ...data, email: e.target.value })}
               />
@@ -84,6 +84,7 @@ export default function Login() {
                 type="password"
                 className="form-control"
                 id="exampleInputPassword1"
+                autoComplete="off"
                 value={data.password}
                 onChange={(e) => setdata({ ...data, password: e.target.value })}
               />

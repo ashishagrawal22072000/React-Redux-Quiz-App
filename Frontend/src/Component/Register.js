@@ -73,7 +73,7 @@ export default function Register() {
                 className="form-control"
                 id="exampleInputEmail1"
                 aria-describedby="emailHelp"
-                autocomplete="off"
+                autoComplete="off"
                 value={datas.name}
                 onChange={(e) => setdatas({ ...datas, name: e.target.value })}
               />
@@ -87,7 +87,7 @@ export default function Register() {
                 className="form-control"
                 id="email"
                 aria-describedby="emailHelp"
-                autocomplete="off"
+                autoComplete="off"
                 value={datas.email}
                 onChange={(e) => setdatas({ ...datas, email: e.target.value })}
               />
